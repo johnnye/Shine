@@ -38,7 +38,7 @@
 	}
 
 	// Orders Per Month
-	$order_totals    = $db->getRows("SELECT DATE_FORMAT(dt, '%b') as dtstr, COUNT(*) FROM shine_orders WHERE type = 'PayPal' $where GROUP BY CONCAT(YEAR(dt), '-', MONTH(dt)) ORDER BY YEAR(dt) ASC, MONTH(dt) ASC");
+	$order_totals    = $db->getRows("SELECT DATE_FORMAT(dt, '%b') as dtstr, COUNT(*) FROM shine_orders $where GROUP BY CONCAT(YEAR(dt), '-', MONTH(dt)) ORDER BY YEAR(dt) ASC, MONTH(dt) ASC");
 	$opm             = new googleChart(implode(',', gimme($order_totals, 'COUNT(*)')), 'bary');
 	$opm->showGrid   = 1;
 	$opm->dimensions = '280x100';
@@ -47,7 +47,7 @@
 	$opm_fb->dimensions = '640x400';
 
 	// Orders Per Week
-	$order_totals    = $db->getRows("SELECT WEEK(dt) as dtstr, COUNT(*) FROM shine_orders WHERE type = 'PayPal' $where GROUP BY CONCAT(YEAR(dt), WEEK(dt)) ORDER BY YEAR(dt) ASC, WEEK(dt) ASC");
+	$order_totals    = $db->getRows("SELECT WEEK(dt) as dtstr, COUNT(*) FROM shine_orders $where GROUP BY CONCAT(YEAR(dt), WEEK(dt)) ORDER BY YEAR(dt) ASC, WEEK(dt) ASC");
 	$opw             = new googleChart(implode(',', gimme($order_totals, 'COUNT(*)')), 'bary');
 	$opw->showGrid   = 1;
 	$opw->dimensions = '280x100';
